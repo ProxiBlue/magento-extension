@@ -81,6 +81,10 @@ class Iterable_TrackOrderPlaced_Helper_Data extends Mage_Core_Helper_Abstract
                 );
             }
 
+            Mage::dispatchEvent('iterable_api_call', array('event'=>$event,'params'=>$params));
+            $cleanName = preg_replace("/[^A-Za-z0-9 ]/", '_', $event);
+            Mage::dispatchEvent('iterable_api_call_' . strtolower($cleanName), $params);
+
             return $response;
         } catch (Exception $e) {
             Mage::log(
